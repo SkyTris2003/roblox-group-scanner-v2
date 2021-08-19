@@ -1,0 +1,58 @@
+import os
+import threading 
+import requests, random
+from bs4 import BeautifulSoup
+from dhooks import Webhook
+
+print("Updated Group finder by ChannyUI 2021")
+
+ #webhook url, from here: https://i.imgur.com/f9XnAew.png
+
+#for all params, see https://discordapp.com/developers/docs/resources/webhook#execute-webhook
+
+
+while True:
+  id = random.randint(100000,900000)
+  print("searching")
+
+  data = {
+    "username" : "ChannyKun Finder",
+     "avatar_url": "",
+    "content" : '2021'
+  }
+  data["embeds"] = [
+    {
+        "description" : "https://web.roblox.com/groups/" + str(id),
+        "title" : "GroupFinder Bot"
+        
+
+    }
+  ]
+  result = requests.get(f"https://groups.roblox.com/v1/groups/{id}")
+  groupS = requests.get(f"https://web.roblox.com/groups/{id}")
+  if 'owned' not in groupS.text:
+    print("nothing")
+    re = requests.get(f"https://groups.roblox.com/v1/groups/{id}")
+    print(re)
+    print("Searching for empty groups")
+    if 'isLocked' not in re.text and 'owner' in re.text:
+      if re.json()['publicEntryAllowed'] == True and re.json()['owner'] == None:
+        result = requests.post(url, json = data)
+        print(f"https://web.roblox.com/groups/{id}")
+      else:
+        print(f"[ Invalid No Owner But Locked ]")
+        print(f"https://web.roblox.com/groups/{id}")
+        print(f"trying to find another group")
+
+try:
+    result.raise_for_status()
+except requests.exceptions.HTTPError as err:
+    print(err)
+else:
+    print("Payload delivered successfully, code {}.".format(result.status_cod
+    
+    
+    
+    
+    
+    
